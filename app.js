@@ -5,14 +5,15 @@ searchButton.addEventListener('click',async function(e){
     e.preventDefault();
 
     // accessing input value
-    const input = document.querySelector('input');
+    const input = document.querySelector('#gifInput');
     let gifUrl = input.value;
     let gifStuff = await axios.get(gifUrl);
-    console.log(gifStuff);
 
     // append the gif
     const container = document.getElementById("gifContainer");
-    container.appendChild(gifStuff.data);
+    const img = document.createElement('img');
+    img.src = gifStuff.config.url
+    container.appendChild(img);
 
     // form reset
     const form = document.querySelector('form');
@@ -22,18 +23,12 @@ searchButton.addEventListener('click',async function(e){
     const remove = document.getElementById("remove");
     remove.addEventListener('click', function(e){
         e.preventDefault();
-        container.children.remove();
+        let i = container.children.length;
+        while (i != 0){
+            container.children[0].remove();
+            i--;
+        }
     })
 })
 
 
-// async function addGif(){
-//     const input = document.querySelector('input');
-//     let gifUrl = input.value;
-//     let gifStuff = await axios.get(gifUrl);
-//     console.log(gifStuff);
-
-//     // form reset
-//     const form = document.querySelector('form');
-//     form.reset();
-// }
